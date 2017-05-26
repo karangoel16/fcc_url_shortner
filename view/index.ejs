@@ -1,7 +1,17 @@
  <% include layout %>
 <body>
-	<p>HTML</p>
+	<div>
+	<h1>FreeCodeCamp API URL shortener</h1>
+	<h3>Example creation usage</h3>
+	<h6>Example input</h6>
+	<code><br>https://enigmatic-spire-90198.herokuapp.com/add/https://www.facebook.com<br>
+	https://http://enigmatic-spire-90198.herokuapp.com/add/http://foo.com:80</code>
+	<h6>Example output</h6>
+	<code><br>{"original_url":"https://www.facebook.com","short_url":"http://enigmatic-spire-90198.herokuapp.com/l/000004"}
+	</code>
+	</div><br>
 	<div class="container">
+		<h3>URL SHORTENER:</h3>
 		<div class="jumbotron">
 			<form method="post" action="/add">
 				<input type="text" name="link" placeholder="Link" class="form-control"><br>
