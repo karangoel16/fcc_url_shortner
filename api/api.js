@@ -2,7 +2,6 @@ module.exports = function(val)
 {
 	var dict="0123456789abcdefghijklmnopqrstuvwqyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	var count=parseInt(val);
-	console.log(count);
 	var res="";
 	while(count){
 		res=dict[(count%62)]+res;

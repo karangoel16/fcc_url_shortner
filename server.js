@@ -5,6 +5,7 @@ var engine = require('ejs-locals');
 var path = require('path');
 var Post = require('./models/post');
 var api = require('./api/api');
+var valid=require('valid-url');
 var app = express();
 require('dotenv').load();
 
@@ -19,14 +20,16 @@ app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.route(/\/add\/.+/)
 	.get(function(req,res,next){
-		console.log(req.path);
 		var path=req.path.replace('/add/','');
 		console.log(path);
-		Post.count(function(err,val)
+		var loc=null;
+		var obj=null;
+		if(valid.isUri(path))
+		{
+			Post.count(function(err,val)
 			{
 				if(err)
 				{
-					console.log(err);
 					return -1;
 				}
 				var post=new Post({
@@ -39,10 +42,17 @@ app.route(/\/add\/.+/)
 						console.log(err);
 						return err;
 					}
-					var obj={"original_url":path,"short_url":process.env.APP_URL+post.link}
+					loc=process.env.APP_URL+post.link;
+					obj={"original_url":path,"short_url":loc};
 					res.send(obj);
 				});
 			});
+		}
+		else
+		{
+			obj={"original_url":path,"short_url":loc}
+			res.send(obj);
+		}
 		});
 app.route('add')
 	.post(function(req,res,next){
